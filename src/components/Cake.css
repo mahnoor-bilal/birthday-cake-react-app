@@ -1,0 +1,11 @@
+.cake-img {
+  width: 100%;
+  max-width: 400px; 
+  image-rendering: pixelated;
+  display: block;
+  margin: 0 auto;
+}
+
+.cake-lit {
+  text-align: center;
+}

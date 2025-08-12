@@ -1,0 +1,22 @@
+.lighter-img {
+  width: 100%;
+  max-width: 150px; 
+  display: block;
+  margin: 0 auto;
+}
+
+.lighter {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 30px;
+  margin-bottom: 0;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .lighter {
+    justify-content: center;
+    margin-right: 0;
+    margin-top: 10px; 
+  }
+}

@@ -1,0 +1,32 @@
+.vinyl-img {
+  width: 100%;
+  max-width: 150px; 
+  animation: spin 4s linear infinite;
+  display: block;
+  margin: 0 auto;
+}
+
+.vinyl {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 30px;
+  
+}
+
+@media (max-width: 400px) {
+  .vinyl {
+    justify-content: left;
+    margin-left: 0;
+    margin-top: 10px; 
+  }
+}
+
+/* Spin animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
