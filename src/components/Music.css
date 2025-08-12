@@ -1,6 +1,6 @@
 .vinyl-img {
   width: 100%;
-  max-width: 150px; 
+  max-width: 100px; 
   animation: spin 4s linear infinite;
   display: block;
   margin: 0 auto;
@@ -13,7 +13,7 @@
   
 }
 
-@media (max-width: 300px) {
+@media (max-width: 200px) {
   .vinyl {
     justify-content: left;
     margin-left: 0;
