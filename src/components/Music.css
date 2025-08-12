@@ -9,7 +9,7 @@
 .vinyl {
   display: flex;
   justify-content: flex-end;
-  margin-left: 30px;
+  margin-left: 20px;
   
 }
 
@@ -18,6 +18,13 @@
     justify-content: left;
     margin-left: 0;
     margin-top: 10px; 
+  }
+  .vinyl-img{
+    width: 100%;
+    max-width: 100px; 
+    animation: spin 4s linear infinite;
+    display: block;
+    margin: 0 auto;
   }
 }
 
