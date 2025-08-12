@@ -13,7 +13,7 @@
 }
 
 /* Mobile adjustments */
-@media (max-width: 600px) {
+@media (max-width: 300px) {
   .lighter {
     justify-content: center;
     margin-right: 0;
