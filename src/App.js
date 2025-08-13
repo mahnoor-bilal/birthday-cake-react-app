@@ -100,7 +100,7 @@ function App() {
         const source = audioContext.createMediaStreamSource(mic);
 
         analyser = audioContext.createAnalyser();
-        analyser.fftSize = 256;
+        analyser.fftSize = 128;
 
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         source.connect(analyser);
