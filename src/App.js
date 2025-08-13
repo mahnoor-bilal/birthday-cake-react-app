@@ -118,7 +118,7 @@ function App() {
         analyser.getByteTimeDomainData(dataArray);
         const volume = Math.max(...dataArray); 
 
-        const BLOW_THRESHOLD = 50; 
+        const BLOW_THRESHOLD = 20; 
         if (volume > BLOW_THRESHOLD && isLitRef.current) {
           setIsLit(false);
           isLitRef.current = false;
