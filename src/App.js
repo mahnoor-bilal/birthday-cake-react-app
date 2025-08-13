@@ -85,7 +85,7 @@ function App() {
         const source = audioContext.createMediaStreamSource(mic);
 
         analyser = audioContext.createAnalyser();
-        analyser.fftSize = 256;
+        analyser.fftSize = 128;
 
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         source.connect(analyser);
@@ -94,7 +94,7 @@ function App() {
           analyser.getByteFrequencyData(dataArray);
           let volume = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
 
-          const BLOW_THRESHOLD = 50;
+          const BLOW_THRESHOLD = 30;
           if (volume > BLOW_THRESHOLD && isLitRef.current) {
             setIsLit(false);
             isLitRef.current = false;
