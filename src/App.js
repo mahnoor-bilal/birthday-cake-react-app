@@ -124,11 +124,12 @@ function App() {
           isLitRef.current = false;
           startConfetti();
         }
+        animationId = requestAnimationFrame(detectBlow);
       }
-
-      intervalId = setInterval(detectBlow, 10);
-
-    } catch (err) {
+      detectBlow();
+    } 
+    
+    catch (err) {
       console.error('Microphone access denied or error:', err);
     }
   }
@@ -137,7 +138,7 @@ function App() {
 
   return () => {
     if (micStream) micStream.getTracks().forEach(track => track.stop());
-    if (intervalId) clearInterval(intervalId);
+    if (animationId) cancelAnimationFrame(animationId);
     if (audioContext) audioContext.close();
   };
 }, []);
