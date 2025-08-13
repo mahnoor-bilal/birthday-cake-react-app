@@ -99,6 +99,7 @@ function App() {
 
       micStream = await navigator.mediaDevices.getUserMedia({
         audio: {
+          deviceId: 'default',
           latency: 0,
           echoCancellation: false,
           noiseSuppression: false,
