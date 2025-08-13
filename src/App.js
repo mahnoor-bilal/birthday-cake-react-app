@@ -88,50 +88,58 @@ function App() {
   }, []);
 
   useEffect(() => {
-    let audioContext;
-    let analyser;
-    let mic;
-    let animationId;
+  let audioContext;
+  let analyser;
+  let micStream;
+  let intervalId;
 
-    async function initMic() {
-      try {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        mic = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const source = audioContext.createMediaStreamSource(mic);
+  async function initMic() {
+    try {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-        analyser = audioContext.createAnalyser();
-        analyser.fftSize = 256;
-
-        const dataArray = new Uint8Array(analyser.frequencyBinCount);
-        source.connect(analyser);
-
-        function detectBlow() {
-          analyser.getByteFrequencyData(dataArray);
-          let volume = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
-
-          const BLOW_THRESHOLD = 50;
-          if (volume > BLOW_THRESHOLD && isLitRef.current) {
-            setIsLit(false);
-            isLitRef.current = false;
-            startConfetti();
-          }
-
-          animationId = requestAnimationFrame(detectBlow);
+      micStream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          latency: 0,
+          echoCancellation: false,
+          noiseSuppression: false,
+          autoGainControl: false
         }
-        detectBlow();
-      } catch (err) {
-        console.error('Microphone access denied or error:', err);
+      });
+
+      const source = audioContext.createMediaStreamSource(micStream);
+      analyser = audioContext.createAnalyser();
+      analyser.fftSize = 128; 
+      source.connect(analyser);
+
+      const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+      function detectBlow() {
+        analyser.getByteTimeDomainData(dataArray);
+        const volume = Math.max(...dataArray); 
+
+        const BLOW_THRESHOLD = 50; 
+        if (volume > BLOW_THRESHOLD && isLitRef.current) {
+          setIsLit(false);
+          isLitRef.current = false;
+          startConfetti();
+        }
       }
+
+      intervalId = setInterval(detectBlow, 10);
+
+    } catch (err) {
+      console.error('Microphone access denied or error:', err);
     }
+  }
 
-    initMic();
+  initMic();
 
-    return () => {
-      if (mic) mic.getTracks().forEach((track) => track.stop());
-      if (animationId) cancelAnimationFrame(animationId);
-      if (audioContext) audioContext.close();
-    };
-  }, []);
+  return () => {
+    if (micStream) micStream.getTracks().forEach(track => track.stop());
+    if (intervalId) clearInterval(intervalId);
+    if (audioContext) audioContext.close();
+  };
+}, []);
 
   return (
     <div className="app-container">
