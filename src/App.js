@@ -94,7 +94,7 @@ function App() {
           analyser.getByteFrequencyData(dataArray);
           let volume = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
 
-          const BLOW_THRESHOLD = 30;
+          const BLOW_THRESHOLD = 50;
           if (volume > BLOW_THRESHOLD && isLitRef.current) {
             setIsLit(false);
             isLitRef.current = false;
