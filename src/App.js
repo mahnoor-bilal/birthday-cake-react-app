@@ -73,6 +73,21 @@ function App() {
   };
 
   useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    return () => window.removeEventListener('resize', resizeCanvas);
+  }, []);
+
+  useEffect(() => {
     let audioContext;
     let analyser;
     let mic;
@@ -117,7 +132,7 @@ function App() {
       if (audioContext) audioContext.close();
     };
   }, []);
-  
+
   return (
     <div className="app-container">
       <Title />
