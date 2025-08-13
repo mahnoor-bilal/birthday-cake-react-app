@@ -85,7 +85,7 @@ function App() {
         const source = audioContext.createMediaStreamSource(mic);
 
         analyser = audioContext.createAnalyser();
-        analyser.fftSize = 128;
+        analyser.fftSize = 256;
 
         const dataArray = new Uint8Array(analyser.frequencyBinCount);
         source.connect(analyser);
@@ -117,7 +117,7 @@ function App() {
       if (audioContext) audioContext.close();
     };
   }, []);
-
+  
   return (
     <div className="app-container">
       <Title />
